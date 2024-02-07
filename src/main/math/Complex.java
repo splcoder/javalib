@@ -3,7 +3,8 @@ package main.math;
 public class Complex implements Comparable<Complex> {
 	public static final Complex I  = new Complex( 0.,1. );
 	public static final Complex _I = new Complex( 0.,-1. );
-	public final double real, imag;
+	
+	private final double real, imag;
 
 	// Helpers for a high intensive use
 	private Double abs = null, phase = null;
@@ -48,6 +49,9 @@ public class Complex implements Comparable<Complex> {
 
 	// Basic fast access values ----------------------------------------------------------------------------------------
 
+	public double real(){ return real; }
+	public double imag(){ return imag; }
+	
 	public boolean isReal(){
 		//return imag == 0.;
 		return Precision.isZero( imag );
