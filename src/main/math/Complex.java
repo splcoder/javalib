@@ -616,6 +616,15 @@ public class Complex implements Comparable<Complex> {
 
 	// Other useful functions ------------------------------------------------------------------------------------------
 
+	public static double distance( Complex a, Complex b ){
+		double difR = a.real - b.real, difI = a.imag - b.imag;
+		return Math.sqrt( difR * difR + difI * difI );
+	}
+	public static double distance2( Complex a, Complex b ){
+		double difR = a.real - b.real, difI = a.imag - b.imag;
+		return ( difR * difR + difI * difI );
+	}
+	
 	// https://en.wikipedia.org/wiki/Lambert_W_function
 	// TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	//public static Complex lambertW( Complex a )		Numerical evaluation
