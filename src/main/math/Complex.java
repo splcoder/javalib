@@ -53,16 +53,13 @@ public class Complex implements Comparable<Complex> {
 	public double imag(){ return imag; }
 	
 	public boolean isReal(){
-		//return imag == 0.;
 		return Precision.isZero( imag );
 	}
 	public boolean hasImaginary(){
-		//return imag != 0.;
 		return ! Precision.isZero( imag );
 	}
 	public boolean isZero(){
-		//return real == 0.;
-		return Precision.isZero( real );
+		return Precision.isZero( real ) && Precision.isZero( imag );
 	}
 	/**
 	 * Returns the absolute/modulus/magnitude value of this complex number.
