@@ -52,15 +52,11 @@ public class Complex implements Comparable<Complex> {
 	public double real(){ return real; }
 	public double imag(){ return imag; }
 	
-	public boolean isReal(){
-		return Precision.isZero( imag );
-	}
-	public boolean hasImaginary(){
-		return ! Precision.isZero( imag );
-	}
-	public boolean isZero(){
-		return Precision.isZero( real ) && Precision.isZero( imag );
-	}
+	public boolean isReal(){ return Precision.isZero( imag ); }
+	public boolean hasImaginary(){ return ! Precision.isZero( imag ); }
+	public boolean isZero(){ return Precision.isZero( real ) && Precision.isZero( imag ); }
+	public boolean isINF(){ return Double.isInfinite( real ) || Double.isInfinite( imag ); }
+	public boolean isNaN(){ return Double.isNaN( real ) || Double.isNaN( imag ); }
 	/**
 	 * Returns the absolute/modulus/magnitude value of this complex number.
 	 */
