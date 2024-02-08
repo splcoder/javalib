@@ -119,6 +119,21 @@ public class Complex implements Comparable<Complex> {
 		return new Complex( this.real * this.real - this.imag * this.imag, this.real * this.imag + this.imag * this.real );
 	}
 
+	// Fast access for basic operations (+ - * /) ----------------------------------------------------------------------
+
+	public Complex add( Complex a ){ return new Complex( real + a.real, imag + a.imag ); }
+	public Complex add( double a ){ return new Complex( real + a, imag ); }
+	public Complex sub( Complex a ){ return new Complex( real - a.real, imag - a.imag ); }
+	public Complex sub( double a ){ return new Complex( real - a, imag ); }
+	public Complex mul( Complex a ){ return new Complex( real * a.real - imag * a.imag, real * a.imag + imag * a.real ); }
+	public Complex mul( double a ){ return new Complex( real * a, imag * a ); }
+	public Complex mulI( double a ){ return new Complex( -imag * a, real * a ); }		// this * (i*a)
+	public Complex div( Complex a ) {
+		double n = a.norm();
+		return new Complex( (real * a.real + imag * a.imag) / n, (imag * a.real - real * a.imag) / n );
+	}
+	public Complex div( double a ){ return new Complex( real / a, imag / a ); }
+
 	// Addition and Subtraction ----------------------------------------------------------------------------------------
 
 	public static Complex add( Complex a, Complex b ) {
