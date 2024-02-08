@@ -40,6 +40,28 @@ public class Complex implements Comparable<Complex> {
 	public static Complex fromPolar( double magnitude, double phase ){
 		return new Complex( magnitude * Math.cos( phase ), magnitude * Math.sin( phase ) );
 	}
+	/**
+	 * Format: "real,imag"
+	 */
+	public static Complex parse( String str ) throws NumberFormatException {
+		if( str == null )	throw new NumberFormatException( "Complex.parse -> null argument" );
+		double rp = 0, ip = 0;
+		String[] arr = str.split( "," );
+		switch( arr.length ){
+			case 0:	break;	// ","
+			case 2: {
+				String aux = arr[1];
+				ip = aux.isEmpty() ? 0. : Double.parseDouble( aux );
+			}
+			case 1: {
+				String aux = arr[0];
+				rp = aux.isEmpty() ? 0. : Double.parseDouble( aux );
+				break;
+			}
+			default:	throw new NumberFormatException( "Complex.parse -> there must be at max 2 components (max 1 comma)" );
+		}
+		return new Complex( rp, ip );
+	}
 
 	public String toString() {
 		if( imag == 0 )	return real + "";
