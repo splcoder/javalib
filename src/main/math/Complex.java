@@ -89,6 +89,9 @@ public class Complex implements Comparable<Complex> {
 	public Complex conjugate() {
 		return new Complex( real, -imag );
 	}
+	public Complex neg() {
+		return new Complex( -real, -imag );
+	}
 	/**
 	 * Returns the reciprocal of this complex number: (1 / this)
 	 */
