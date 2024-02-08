@@ -640,6 +640,7 @@ public class Complex implements Comparable<Complex> {
 
 	public boolean equals( Object x ) {
 		if( x == null || this.getClass() != x.getClass() )	return false;
+		if( this == x )	return true;
 		Complex that = (Complex) x;
 		//return (this.real == that.real) && (this.imag == that.imag);
 		return Precision.equals( this.real, that.real ) && Precision.equals( this.imag, that.imag );
