@@ -9,7 +9,7 @@ public class Complex implements Comparable<Complex> {
 	private final double real, imag;
 
 	// Helpers for a high intensive use
-	private Double abs = null, phase = null;
+	transient private Double abs = null, phase = null;
 
 	public Complex( double real, double imag ) {
 		this.real = real;
