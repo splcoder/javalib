@@ -2,6 +2,7 @@ package main.math;
 
 public class Complex implements Comparable<Complex> {
 	public static final Complex ONE	= new Complex( 1., 0. );
+	public static final Complex _ONE= new Complex( -1., 0. );
 	public static final Complex I	= new Complex( 0., 1. );
 	public static final Complex _I	= new Complex( 0., -1. );
 	
