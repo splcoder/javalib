@@ -54,11 +54,11 @@ public class Complex implements Comparable<Complex> {
 			case 0:	break;	// ","
 			case 2: {
 				String aux = arr[1];
-				ip = aux.isEmpty() ? 0. : Double.parseDouble( aux );
+				ip = aux.isBlank() ? 0. : Double.parseDouble( aux );
 			}
 			case 1: {
 				String aux = arr[0];
-				rp = aux.isEmpty() ? 0. : Double.parseDouble( aux );
+				rp = aux.isBlank() ? 0. : Double.parseDouble( aux );
 				break;
 			}
 			default:	throw new NumberFormatException( "Complex.parse -> there must be at max 2 components (max 1 comma)" );
