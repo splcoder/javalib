@@ -72,6 +72,35 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return real + (imag < 0. ? (" - " + (-imag) ) : (" + " + imag)) + "i";
 	}
 
+	public static boolean save( List<Complex> c, String filename ){
+		try {
+			FileOutputStream fileOut = new FileOutputStream( filename );
+			ObjectOutputStream out = new ObjectOutputStream( fileOut );
+			out.writeObject( c );
+			out.close();
+			fileOut.close();
+		} catch ( IOException ioe ){
+			ioe.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	public static List<Complex> load( String filename ){
+		List<Complex> c = null;
+		try {
+			FileInputStream fileIn = new FileInputStream( filename );
+			ObjectInputStream in = new ObjectInputStream( fileIn );
+			c = (List<Complex>) in.readObject();
+			in.close();
+			fileIn.close();
+		} catch( IOException ioe ){
+			ioe.printStackTrace();
+		} catch( ClassNotFoundException cnfe ){
+			cnfe.printStackTrace();
+		}
+		return c;
+	}
+
 	// Basic fast access values ----------------------------------------------------------------------------------------
 
 	public double real(){ return real; }
