@@ -691,6 +691,19 @@ public class Complex implements Comparable<Complex>, Serializable {
 		double difR = a.real - b.real, difI = a.imag - b.imag;
 		return ( difR * difR + difI * difI );
 	}
+
+	public static Complex sum( Complex... args ){
+		if( args.length == 0 )	return Complex.ZERO;
+		Complex res = args[ 0 ];
+		for( int i = 1; i < args.length; i++ )	res = res.add( args[ i ] );
+		return res;
+	}
+	public static Complex product( Complex... args ){
+		if( args.length == 0 )	return Complex.ONE;
+		Complex res = args[ 0 ];
+		for( int i = 1; i < args.length; i++ )	res = res.mul( args[ i ] );
+		return res;
+	}
 	
 	// https://en.wikipedia.org/wiki/Lambert_W_function
 	// TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
