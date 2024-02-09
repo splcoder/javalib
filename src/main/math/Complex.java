@@ -72,6 +72,8 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return real + (imag < 0. ? (" - " + (-imag) ) : (" + " + imag)) + "i";
 	}
 
+	// Save to file / Load from file -----------------------------------------------------------------------------------
+
 	public static boolean save( List<Complex> c, String filename ){
 		try {
 			FileOutputStream fileOut = new FileOutputStream( filename );
