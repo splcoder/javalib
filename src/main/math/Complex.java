@@ -461,11 +461,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 	 * https://en.wikipedia.org/wiki/Lambert_W_function
 	 * z*(e^(z)) = e^(x) * (x*Cos(y) - y*Sin(y)) + i * e^(x) * (x*Sin(y) + y*Cos(y))
 	 */
-	public static Complex expLW( Complex a ) {
+	public static Complex expW( Complex a ) {
 		double e = Math.exp( a.real ), s = Math.sin( a.imag ), c = Math.cos( a.imag );
 		return new Complex( e * (a.real * c - a.imag * s), e * (a.real * s + a.imag * c) );
 	}
-	public static Complex expLW( double a ){
+	public static Complex expW( double a ){
 		return new Complex( a * Math.exp( a ), 0. );
 	}
 
