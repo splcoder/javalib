@@ -23,7 +23,6 @@ public class Complex implements Comparable<Complex>, Serializable {
 		this.real = real;
 		this.imag = imag;
 	}
-
 	public Complex( double real ) {
 		this( real, 0. );
 	}
@@ -36,14 +35,14 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public Complex copy(){
 		return new Complex( real, imag, abs, phase );
 	}
-	public static Complex fromComplex( Complex a ){	// Copy only the basic variables
+	public static Complex from( Complex a ){	// Copy only the basic variables
 		return new Complex( a.real, a.imag );
 	}
 	// Conversion ------------------------------------------------------------------------------------------------------
-	public static Complex fromDouble( double real ){
+	public static Complex from( double real ){
 		return new Complex( real, 0. );
 	}
-	public static Complex fromDouble( double real, double imag ){
+	public static Complex from( double real, double imag ){
 		return new Complex( real, imag );
 	}
 	public static Complex fromPolar( double magnitude, double phase ){
@@ -115,12 +114,12 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public double imag(){ return imag; }
 
 	public boolean isReal(){ return Precision.isZero( imag ); }
-	public boolean isImaginary(){ return ! Precision.isZero( imag ); }
+	public boolean isImag(){ return ! Precision.isZero( imag ); }
 	public boolean isZero(){ return Precision.isZero( real ) && Precision.isZero( imag ); }
-	public boolean isINF(){ return Double.isInfinite( real ) || Double.isInfinite( imag ); }
+	public boolean isInf(){ return Double.isInfinite( real ) || Double.isInfinite( imag ); }
 	public boolean isNaN(){ return Double.isNaN( real ) || Double.isNaN( imag ); }
 	/**
-	 * Returns the absolute/modulus/magnitude value of this complex number.
+	 * Absolute/modulus/magnitude value.
 	 */
 	public double abs() {
 		if( abs == null )	abs = Math.hypot( real, imag );
@@ -133,26 +132,32 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return real * real + imag * imag;
 	}
 	/**
-	 * Returns the phase/angle/argument of this complex number, in (-PI, PI]
+	 * Phase/angle/argument of this complex number, in (-PI, PI]
 	 */
 	public double phase() {
 		if( phase == null )	phase = Math.atan2( imag, real );
 		return phase;
 	}
-	public Complex conjugate() {
+	/**
+	 * Conjugate
+	 */
+	public Complex conj() {
 		return new Complex( real, -imag );
 	}
 	public Complex neg() {
 		return new Complex( -real, -imag );
 	}
 	/**
-	 * Returns the reciprocal of this complex number: (1 / this)
+	 * Reciprocal of this: (1 / this)
 	 */
-	public Complex reciprocal() {
+	public Complex rec() {
 		double scale = real * real + imag * imag;
 		return new Complex(real / scale, -imag / scale );
 	}
-	public Complex square() {
+	/**
+	 * Square
+	 */
+	public Complex sqr() {
 		return new Complex( this.real * this.real - this.imag * this.imag, this.real * this.imag + this.imag * this.real );
 	}
 
@@ -331,7 +336,7 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex root( Complex base, Complex exp, int k ){
 		// Set base in polar form, and exp in cartesian
 		double n = base.norm(), angle = base.phase() + Constant.M_2PI * k;
-		Complex rec = exp.reciprocal();
+		Complex rec = exp.rec();
 		return Complex.fromPolar( Math.pow( n, 0.5 * rec.real ) * Math.exp( -angle * rec.imag ), angle * rec.real + 0.5 * rec.imag * Math.log( n ) );
 	}
 	public static Complex root( Complex base, Complex exp ){
@@ -360,7 +365,7 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return Complex.root( base, exp, 0 );
 	}
 	public static Complex root( double base, Complex exp, int k ){
-		Complex rec = exp.reciprocal();
+		Complex rec = exp.rec();
 		if( base < 0. ){
 			double angle = Math.PI + Constant.M_2PI * k;
 			return Complex.fromPolar( Math.pow( -base, rec.real ) * Math.exp( -angle * rec.imag ), angle * rec.real + rec.imag * Math.log( -base ) );
@@ -518,15 +523,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex asin( Complex a ){
 		return Complex.asin( a, 0, 0 );
 	}
-	/*public static Complex asin( double a ){
-		if( a < -1. || 1. < a )	return Complex.asin( Complex.fromDouble( a ) );
-		return Complex.fromDouble( Math.asin( a ) );
-	}*/
 	public static Complex asin( double a, int ks, int kl ){
-		return Complex.asin( Complex.fromDouble( a ), ks, kl );
+		return Complex.asin( Complex.from( a ), ks, kl );
 	}
 	public static Complex asin( double a ){
-		return Complex.asin( Complex.fromDouble( a ), 0, 0 );
+		return Complex.asin( Complex.from( a ), 0, 0 );
 	}
 	public static Complex acos( Complex a, int ks, int kl ){	// -I*ln( x + sqrt( x^2 - 1 ) )
 		Complex xx_1 = new Complex(  (a.real - 1.) * (a.real + 1.) - a.imag * a.imag, 2. * a.real * a.imag );
@@ -537,15 +538,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex acos( Complex a ){
 		return Complex.acos( a, 0, 0 );
 	}
-	/*public static Complex acos( double a ){
-		if( a < -1. || 1. < a )	return Complex.acos( Complex.fromDouble( a ) );
-		return Complex.fromDouble( Math.acos( a ) );
-	}*/
 	public static Complex acos( double a, int ks, int kl ){
-		return Complex.acos( Complex.fromDouble( a ), ks, kl );
+		return Complex.acos( Complex.from( a ), ks, kl );
 	}
 	public static Complex acos( double a ){
-		return Complex.acos( Complex.fromDouble( a ), 0, 0 );
+		return Complex.acos( Complex.from( a ), 0, 0 );
 	}
 	public static Complex atan( Complex a, int k ){	// 0.5*I*ln( (I + x)/(I - x) )
 		double den = a.real * a.real + (a.imag - 1.) * (a.imag - 1.);
@@ -557,10 +554,10 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return Complex.atan( a, 0 );
 	}
 	public static Complex atan( double a, int k ){
-		return Complex.atan( Complex.fromDouble( a ), k );
+		return Complex.atan( Complex.from( a ), k );
 	}
 	public static Complex atan( double a ){
-		return Complex.atan( Complex.fromDouble( a ), 0 );
+		return Complex.atan( Complex.from( a ), 0 );
 	}
 
 	// Hyperbolic ------------------------------------------------------------------------------------------------------
@@ -615,10 +612,10 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return Complex.asinh( a, 0, 0 );
 	}
 	public static Complex asinh( double a, int ks, int kl ){
-		return Complex.asinh( Complex.fromDouble( a ), ks, kl );
+		return Complex.asinh( Complex.from( a ), ks, kl );
 	}
 	public static Complex asinh( double a ){
-		return Complex.asinh( Complex.fromDouble( a ), 0, 0 );
+		return Complex.asinh( Complex.from( a ), 0, 0 );
 	}
 	public static Complex acosh( Complex a, int ks, int kl ){	// ln( x + sqrt( x^2 - 1 ) )
 		Complex xx_1 = new Complex( (a.real - 1.)*(a.real + 1.) - a.imag * a.imag, 2. * a.real * a.imag );
@@ -628,15 +625,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex acosh( Complex a ){
 		return Complex.acosh( a, 0, 0 );
 	}
-	/*public static Complex acosh( double a ){
-		if( a < 1. )	return Complex.acosh( Complex.fromDouble( a ) );
-		return new Complex( Math.log( a + Math.sqrt( (a - 1.)*(a + 1.) ) ), 0. );
-	}*/
 	public static Complex acosh( double a, int ks, int kl ){
-		return Complex.acosh( Complex.fromDouble( a ), ks, kl );
+		return Complex.acosh( Complex.from( a ), ks, kl );
 	}
 	public static Complex acosh( double a ){
-		return Complex.acosh( Complex.fromDouble( a ), 0, 0 );
+		return Complex.acosh( Complex.from( a ), 0, 0 );
 	}
 	public static Complex atanh( Complex a, int k ){	// 0.5*ln( (1 + x)/(1 - x) )
 		double den = (1. - a.real)*(1. - a.real) + a.imag * a.imag;
@@ -646,24 +639,20 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex atanh( Complex a ){
 		return Complex.atanh( a, 0 );
 	}
-	/*public static Complex atanh( double a ){
-		if( a <= -1. || 1. <= a )	return Complex.atanh( Complex.fromDouble( a ) );
-		return new Complex( 0.5 * Math.log( (1. + a)/(1. - a) ), 0. );
-	}*/
 	public static Complex atanh( double a, int k ){
-		return Complex.atanh( Complex.fromDouble( a ), k );
+		return Complex.atanh( Complex.from( a ), k );
 	}
 	public static Complex atanh( double a ){
-		return Complex.atanh( Complex.fromDouble( a ), 0 );
+		return Complex.atanh( Complex.from( a ), 0 );
 	}
 
 	// Other useful functions ------------------------------------------------------------------------------------------
 
-	public static double distance( Complex a, Complex b ){
+	public static double dist( Complex a, Complex b ){
 		double difR = a.real - b.real, difI = a.imag - b.imag;
 		return Math.sqrt( difR * difR + difI * difI );
 	}
-	public static double distance2( Complex a, Complex b ){
+	public static double dist2( Complex a, Complex b ){
 		double difR = a.real - b.real, difI = a.imag - b.imag;
 		return ( difR * difR + difI * difI );
 	}
@@ -674,7 +663,10 @@ public class Complex implements Comparable<Complex>, Serializable {
 		for( int i = 1; i < args.length; i++ )	res = res.add( args[ i ] );
 		return res;
 	}
-	public static Complex product( Complex... args ){
+	/**
+	 * Product
+	 */
+	public static Complex prod( Complex... args ){
 		if( args.length == 0 )	return Complex.ONE;
 		Complex res = args[ 0 ];
 		for( int i = 1; i < args.length; i++ )	res = res.mul( args[ i ] );
