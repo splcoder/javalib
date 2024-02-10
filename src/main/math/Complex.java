@@ -38,7 +38,9 @@ public class Complex implements Comparable<Complex>, Serializable {
 	public static Complex from( Complex a ){	// Copy only the basic variables
 		return new Complex( a.real, a.imag );
 	}
+
 	// Conversion ------------------------------------------------------------------------------------------------------
+	
 	public static Complex from( double real ){
 		return new Complex( real, 0. );
 	}
@@ -49,7 +51,7 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return new Complex( magnitude * Math.cos( phase ), magnitude * Math.sin( phase ) );
 	}
 	/**
-	 * Format: "real,imag"
+	 * Format: "real,imag" or "(real,imag)"
 	 */
 	public static Complex parse( String str ) throws NumberFormatException {
 		if( str == null )	throw new NumberFormatException( "Complex.parse -> null argument" );
@@ -58,11 +60,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 		switch( arr.length ){
 			case 0:	break;	// ","
 			case 2: {
-				String aux = arr[1];
+				String aux = arr[1].replace( ")", "" );
 				ip = aux.isBlank() ? 0. : Double.parseDouble( aux );
 			}
 			case 1: {
-				String aux = arr[0];
+				String aux = arr[0].replace( "(", "" );;
 				rp = aux.isBlank() ? 0. : Double.parseDouble( aux );
 				break;
 			}
@@ -71,10 +73,28 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return new Complex( rp, ip );
 	}
 
+	@Override
 	public String toString() {
-		if( imag == 0 )	return real + "";
-		if( real == 0 )	return imag + "i";
-		return real + (imag < 0. ? (" - " + (-imag) ) : (" + " + imag)) + "i";
+		//if( imag == 0 )	return real + "";
+		//if( real == 0 )	return imag + "i";
+		//return real + (imag < 0. ? (" - " + (-imag) ) : (" + " + imag)) + "i";
+		return "(" + real + ", " + imag + ")";
+	}
+
+	public boolean equals( Object x ) {
+		//if( x == null || this.getClass() != x.getClass() )	return false;
+		if( ! (x instanceof Complex) )	return false;
+		if( this == x )	return true;
+		Complex that = (Complex) x;
+		//return (this.real == that.real) && (this.imag == that.imag);
+		return Precision.equals( this.real, that.real ) && Precision.equals( this.imag, that.imag );
+	}
+	@Override
+	public int compareTo( Complex x ){		// Sort by real part
+		if( x == null )	return 1;
+		int res = Double.compare( this.real, x.real );
+		if( res == 0 )	return Double.compare( this.imag, x.imag );
+		return res;
 	}
 
 	// Save to file / Load from file -----------------------------------------------------------------------------------
@@ -670,23 +690,6 @@ public class Complex implements Comparable<Complex>, Serializable {
 		if( args.length == 0 )	return Complex.ONE;
 		Complex res = args[ 0 ];
 		for( int i = 1; i < args.length; i++ )	res = res.mul( args[ i ] );
-		return res;
-	}
-
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	public boolean equals( Object x ) {
-		if( x == null || this.getClass() != x.getClass() )	return false;
-		if( this == x )	return true;
-		Complex that = (Complex) x;
-		//return (this.real == that.real) && (this.imag == that.imag);
-		return Precision.equals( this.real, that.real ) && Precision.equals( this.imag, that.imag );
-	}
-	@Override
-	public int compareTo( Complex x ){		// Sort by real part
-		if( x == null )	return 1;
-		int res = Double.compare( this.real, x.real );
-		if( res == 0 )	return Double.compare( this.imag, x.imag );
 		return res;
 	}
 }
