@@ -681,14 +681,6 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return res;
 	}
 
-	// https://en.wikipedia.org/wiki/Lambert_W_function
-	// TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	//public static Complex lambertW( Complex a )		Numerical evaluation
-	//public static Complex lambertW( double a )
-	// https://github.com/DarkoVeberic/LambertW
-	// https://ingalidakis.com/math/LWCalculating2.html
-
-
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public boolean equals( Object x ) {
