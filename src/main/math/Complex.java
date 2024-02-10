@@ -1,5 +1,8 @@
 package main.math;
 
+/**
+ * There is no valid method to sort complex numbers. This is only for personal use.
+ */
 public class Complex implements Comparable<Complex>, Serializable {
 	public static final Complex ZERO	= new Complex( 0., 0. );
 	public static final Complex ONE		= new Complex( 1., 0. );
