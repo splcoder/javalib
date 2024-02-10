@@ -707,13 +707,6 @@ public class Complex implements Comparable<Complex>, Serializable {
 		for( int i = 1; i < args.length; i++ )	res = res.mul( args[ i ] );
 		return res;
 	}
-	
-	// https://en.wikipedia.org/wiki/Lambert_W_function
-	// TODO <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-	//public static Complex lambertW( Complex a )		Numerical evaluation
-	//public static Complex lambertW( double a )
-	// https://github.com/DarkoVeberic/LambertW
-	// https://ingalidakis.com/math/LWCalculating2.html
 
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
