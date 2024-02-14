@@ -99,7 +99,10 @@ public class Complex implements Comparable<Complex>, Serializable {
 
 	@Override
 	public int hashCode(){
-		return Objects.hash( real, imag );
+		int hash = 7;
+		hash = 31 * hash + Double.hashCode( real );
+		hash = 31 * hash + Double.hashCode( imag );
+		return hash;
 	}
 
 	// Save to file / Load from file -----------------------------------------------------------------------------------
