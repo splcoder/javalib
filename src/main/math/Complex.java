@@ -97,6 +97,11 @@ public class Complex implements Comparable<Complex>, Serializable {
 		return res;
 	}
 
+	@Override
+	public int hashCode(){
+		return Objects.hash( real, imag );
+	}
+
 	// Save to file / Load from file -----------------------------------------------------------------------------------
 
 	public static boolean save( List<Complex> c, String filename ){
